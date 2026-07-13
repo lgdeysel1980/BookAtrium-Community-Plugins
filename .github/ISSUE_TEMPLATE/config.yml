@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: BookAtrium application issues
+    url: https://github.com/lgdeysel1980/BookAtrium/issues
+    about: Bugs and feature requests for the BookAtrium application, installer, or Community Plugins window — not third-party plugin support.
+  - name: BookAtrium releases
+    url: https://github.com/lgdeysel1980/BookAtrium/releases
+    about: Download BookAtrium releases. Plugin packages are hosted on each publisher’s own GitHub Releases, not here.
+  - name: Security (Private Vulnerability Reporting)
+    url: https://github.com/lgdeysel1980/BookAtrium-Community-Plugins/security
+    about: Report registry or listed-plugin security issues privately. Do not file public Issues for active compromises. Enable Private Vulnerability Reporting in repo settings if this link is not yet active.

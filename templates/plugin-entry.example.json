@@ -1,0 +1,40 @@
+{
+  "id": "com.yourorg.example-plugin",
+  "name": "Your Plugin Display Name",
+  "summary": "One-line summary for the catalogue UI.",
+  "description": "Longer plain-text description of what the plugin does.",
+  "publisher": {
+    "name": "Your Name or Org",
+    "githubLogin": "YourGitHubLogin",
+    "verified": false
+  },
+  "pluginType": "MetadataSource",
+  "version": "1.0.0",
+  "releaseDateUtc": "2026-07-01T00:00:00Z",
+  "minimumAppVersion": "1.0.0",
+  "pluginApiVersion": "1.1",
+  "supportedPlatforms": ["windows-x64"],
+  "repositoryUrl": "https://github.com/YourGitHubLogin/YourPluginRepo",
+  "supportUrl": "https://github.com/YourGitHubLogin/YourPluginRepo/issues",
+  "documentationUrl": "https://github.com/YourGitHubLogin/YourPluginRepo/blob/main/README.md",
+  "license": {
+    "spdxId": "MIT",
+    "url": "https://github.com/YourGitHubLogin/YourPluginRepo/blob/main/LICENSE"
+  },
+  "package": {
+    "downloadUrl": "https://github.com/YourGitHubLogin/YourPluginRepo/releases/download/v1.0.0/YourPlugin-1.0.0.bookapp-plugin",
+    "fileName": "YourPlugin-1.0.0.bookapp-plugin",
+    "sizeBytes": 123456,
+    "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "capabilities": ["MetadataLookup", "NetworkAccess"],
+  "networkHosts": ["api.example.com"],
+  "requiresRestart": true,
+  "homepageUrl": "https://github.com/YourGitHubLogin/YourPluginRepo",
+  "changelogUrl": "https://github.com/YourGitHubLogin/YourPluginRepo/releases/tag/v1.0.0",
+  "deprecated": false,
+  "blocked": false,
+  "blockedVersions": [],
+  "uninstallPluginIds": [],
+  "tags": ["metadata"]
+}

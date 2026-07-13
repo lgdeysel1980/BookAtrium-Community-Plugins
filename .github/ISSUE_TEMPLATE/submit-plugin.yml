@@ -1,0 +1,311 @@
+﻿name: Submit a Community Plugin
+description: Propose a new listing, update, ownership transfer, deprecation, or removal. Opening this Issue does not list the plugin automatically â€” a reviewed pull request is required.
+title: "[Plugin] "
+labels: ["plugin-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing a catalogue change for the BookAtrium Community Plugins registry.
+
+        **Important**
+        - Opening this Issue does **not** add or update a catalogue entry.
+        - You must also open a pull request editing `plugins/<id>.json` and regenerating `generated/`.
+        - Inclusion is discretionary and is **not** a safety guarantee.
+        - Example manifests under `examples/` are **EXAMPLE ONLY** and are not live catalogue entries.
+        - Application bugs belong at https://github.com/lgdeysel1980/BookAtrium/issues
+        - Plugin behaviour support belongs at your `supportUrl`, not this registry.
+
+        Read `policies/submission-policy.md` and `templates/submission-checklist.md` before continuing.
+
+  - type: dropdown
+    id: submission-type
+    attributes:
+      label: Submission type
+      description: What kind of catalogue change are you requesting?
+      options:
+        - New plugin
+        - Plugin update
+        - Ownership transfer
+        - Deprecation request
+        - Removal request
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-name
+    attributes:
+      label: Plugin name
+      description: Human-readable display name.
+      placeholder: My Metadata Source
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-id
+    attributes:
+      label: Stable plugin ID
+      description: Reverse-DNS style id. Must stay stable across updates. Do not use reserved prefixes bookatrium.*, bookapplication.*, or builtin.*.
+      placeholder: com.example.my-plugin
+    validations:
+      required: true
+
+  - type: dropdown
+    id: plugin-type
+    attributes:
+      label: Plugin type
+      description: Must match BookAtrium PluginType vocabulary exactly.
+      options:
+        - ConversionInput
+        - ConversionOutput
+        - DeviceInterface
+        - MetadataReader
+        - MetadataSource
+        - MetadataWriter
+        - Store
+    validations:
+      required: true
+
+  - type: input
+    id: publisher-name
+    attributes:
+      label: Publisher name
+      description: Organisation or person shown as publisher in the catalogue.
+      placeholder: Example Publisher
+    validations:
+      required: true
+
+  - type: input
+    id: github-username
+    attributes:
+      label: GitHub username
+      description: Account that owns or is authorised to distribute the plugin.
+      placeholder: your-github-username
+    validations:
+      required: true
+
+  - type: input
+    id: repository-url
+    attributes:
+      label: Public source repository URL
+      description: HTTPS URL of the public GitHub source repository.
+      placeholder: https://github.com/your-org/your-plugin
+    validations:
+      required: true
+
+  - type: input
+    id: support-url
+    attributes:
+      label: Support URL
+      description: Where end users should report plugin-specific problems.
+      placeholder: https://github.com/your-org/your-plugin/issues
+    validations:
+      required: true
+
+  - type: input
+    id: documentation-url
+    attributes:
+      label: Documentation URL
+      description: README or docs URL for install and configuration help.
+      placeholder: https://github.com/your-org/your-plugin#readme
+    validations:
+      required: true
+
+  - type: input
+    id: release-tag
+    attributes:
+      label: Release tag
+      description: Exact immutable Git tag for this submission (for example v1.0.0).
+      placeholder: v1.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: download-url
+    attributes:
+      label: Exact immutable release asset URL
+      description: Must be https://github.com/<owner>/<repo>/releases/download/{tag}/{asset}. Mutable /releases/latest/download/ URLs are rejected.
+      placeholder: https://github.com/your-org/your-plugin/releases/download/v1.0.0/Your.Plugin.bookapp-plugin
+    validations:
+      required: true
+
+  - type: input
+    id: package-filename
+    attributes:
+      label: Package filename
+      description: Exact asset file name, including .bookapp-plugin extension.
+      placeholder: Your.Plugin.bookapp-plugin
+    validations:
+      required: true
+
+  - type: input
+    id: package-size
+    attributes:
+      label: Package size (bytes)
+      description: Exact sizeBytes of the release asset (maximum 40 MiB).
+      placeholder: 1234567
+    validations:
+      required: true
+
+  - type: input
+    id: sha256
+    attributes:
+      label: SHA-256
+      description: 64 hexadecimal characters of the exact release asset bytes.
+      placeholder: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: Semantic version matching the package manifest and registry entry.
+      placeholder: 1.0.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: plugin-api-version
+    attributes:
+      label: Plugin API version
+      description: Prefer 1.1 for new submissions.
+      options:
+        - "1.1"
+        - "1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: minimum-bookatrium-version
+    attributes:
+      label: Minimum BookAtrium version
+      description: Lowest BookAtrium application version this package supports.
+      placeholder: 1.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: maximum-bookatrium-version
+    attributes:
+      label: Maximum BookAtrium version (optional)
+      description: Leave blank if there is no upper bound.
+      placeholder: 2.0.0
+
+  - type: textarea
+    id: supported-platforms
+    attributes:
+      label: Supported platforms
+      description: One platform per line (values must match BookAtrium platform vocabulary used in manifests).
+      placeholder: |
+        win-x64
+    validations:
+      required: true
+
+  - type: textarea
+    id: capabilities
+    attributes:
+      label: Capabilities
+      description: Exact capability names declared for this plugin type (one per line).
+      placeholder: |
+        MetadataLookup
+        NetworkAccess
+    validations:
+      required: true
+
+  - type: textarea
+    id: network-hosts
+    attributes:
+      label: Network hosts
+      description: Outbound hosts the plugin contacts. Use none if the plugin does not use the network; otherwise list hosts one per line.
+      placeholder: |
+        api.example.org
+        none
+    validations:
+      required: true
+
+  - type: input
+    id: license-spdx
+    attributes:
+      label: Licence SPDX ID
+      description: SPDX identifier for the plugin licence (not the registry licence).
+      placeholder: MIT
+    validations:
+      required: true
+
+  - type: input
+    id: license-url
+    attributes:
+      label: Licence URL
+      description: Link to the full licence text in your repository or a canonical licence URL.
+      placeholder: https://github.com/your-org/your-plugin/blob/main/LICENSE
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Short accurate catalogue description. Do not claim official BookAtrium or PractiCore affiliation.
+      placeholder: Looks up book metadata from â€¦
+    validations:
+      required: true
+
+  - type: textarea
+    id: changelog
+    attributes:
+      label: Changelog / release notes
+      description: Summarise what is new or changed in this version. For updates, call out breaking changes.
+      placeholder: |
+        - Initial public release
+    validations:
+      required: true
+
+  - type: textarea
+    id: testing-performed
+    attributes:
+      label: Testing performed
+      description: Describe local BookAtrium install/enable testing and any type-specific checks you ran.
+      placeholder: |
+        - Installed .bookapp-plugin via Settings â†’ Plugins
+        - Enabled plugin and restarted if required
+        - Exercised primary happy path
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Required confirmations
+      description: All items must be checked. False confirmations are grounds for rejection and possible future ban from the catalogue.
+      options:
+        - label: The source repository is public.
+          required: true
+        - label: I own this code or have permission to distribute it under the declared licence.
+          required: true
+        - label: All dependencies permit redistribution inside the .bookapp-plugin package.
+          required: true
+        - label: The release asset URL is immutable (not /releases/latest/download/).
+          required: true
+        - label: The package manifest matches this registry submission (id, version, type, API, capabilities, platforms, bounds).
+          required: true
+        - label: The package contains no credentials, API keys, private certificates, or other secrets.
+          required: true
+        - label: The plugin does not disable TLS / certificate validation.
+          required: true
+        - label: The plugin does not contain hidden telemetry.
+          required: true
+        - label: The plugin does not collect personal data without clear disclosure.
+          required: true
+        - label: The plugin does not facilitate DRM circumvention or piracy.
+          required: true
+        - label: The plugin does not bundle infringing or stolen content.
+          required: true
+        - label: The plugin follows BookAtrium plugin and registry policies (submission, security, removal, publisher guidelines).
+          required: true
+        - label: I accept ongoing support responsibility for this plugin via the stated support URL.
+          required: true
+        - label: I understand registry inclusion is discretionary and listings may later be deprecated, blocked, or removed.
+          required: true
+        - label: I understand submitting this Issue does not guarantee approval or catalogue publication.
+          required: true

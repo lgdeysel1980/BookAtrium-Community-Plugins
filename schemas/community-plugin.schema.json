@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lgdeysel1980/BookAtrium-Community-Plugins/schemas/community-plugin.schema.json",
+  "title": "Community Plugin Registry Entry",
+  "description": "Single curated plugin catalogue entry (schemaVersion 1 vocabulary).",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "id",
+    "name",
+    "publisher",
+    "pluginType",
+    "version",
+    "minimumAppVersion",
+    "pluginApiVersion",
+    "supportedPlatforms",
+    "repositoryUrl",
+    "license",
+    "package",
+    "capabilities",
+    "networkHosts",
+    "tags",
+    "uninstallPluginIds",
+    "blockedVersions"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]([a-z0-9.\\-]{0,126}[a-z0-9])?$"
+    },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "summary": { "type": ["string", "null"], "maxLength": 500 },
+    "description": { "type": ["string", "null"], "maxLength": 4000 },
+    "publisher": {
+      "type": "object",
+      "required": ["name", "verified"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "githubLogin": { "type": ["string", "null"], "maxLength": 64 },
+        "verified": { "const": false }
+      }
+    },
+    "pluginType": {
+      "type": "string",
+      "enum": [
+        "ConversionInput",
+        "ConversionOutput",
+        "DeviceInterface",
+        "MetadataReader",
+        "MetadataSource",
+        "MetadataWriter",
+        "Store"
+      ]
+    },
+    "version": { "type": "string", "minLength": 1 },
+    "releaseDateUtc": { "type": ["string", "null"], "format": "date-time" },
+    "minimumAppVersion": { "type": "string", "minLength": 1 },
+    "maximumAppVersion": { "type": ["string", "null"] },
+    "pluginApiVersion": { "type": "string", "minLength": 1 },
+    "supportedPlatforms": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "items": {
+        "type": "string",
+        "enum": ["windows-x64", "windows-x86", "windows-arm64", "windows", "any"]
+      }
+    },
+    "repositoryUrl": {
+      "type": "string",
+      "pattern": "^https://github\\.com/[A-Za-z0-9]([A-Za-z0-9\\-]*[A-Za-z0-9])?/[A-Za-z0-9._\\-]+/?$"
+    },
+    "supportUrl": { "type": ["string", "null"] },
+    "documentationUrl": { "type": ["string", "null"] },
+    "license": {
+      "type": "object",
+      "required": ["spdxId"],
+      "properties": {
+        "spdxId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "url": { "type": ["string", "null"] }
+      }
+    },
+    "package": {
+      "type": "object",
+      "required": ["downloadUrl", "fileName", "sizeBytes", "sha256"],
+      "properties": {
+        "downloadUrl": {
+          "type": "string",
+          "pattern": "^https://github\\.com/[A-Za-z0-9]([A-Za-z0-9\\-]*[A-Za-z0-9])?/[A-Za-z0-9._\\-]+/releases/download/[^/]+/[^/?#]+$"
+        },
+        "fileName": { "type": "string", "minLength": 1, "maxLength": 260 },
+        "sizeBytes": { "type": "integer", "minimum": 1, "maximum": 41943040 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "type": "string",
+        "enum": [
+          "NetworkAccess",
+          "PluginSettingsStorage",
+          "TemporaryFileAccess",
+          "ReadBookMetadata",
+          "WriteBookMetadata",
+          "ReadInputFormat",
+          "ProduceOutputFormat",
+          "DetectDevice",
+          "TransferToDevice",
+          "StoreSearch",
+          "CoverDownload",
+          "MetadataLookup"
+        ]
+      }
+    },
+    "networkHosts": {
+      "type": "array",
+      "maxItems": 32,
+      "items": { "type": "string", "minLength": 1, "maxLength": 253 }
+    },
+    "requiresRestart": { "type": "boolean" },
+    "homepageUrl": { "type": ["string", "null"] },
+    "donationUrl": { "type": ["string", "null"] },
+    "changelogUrl": { "type": ["string", "null"] },
+    "deprecated": { "type": "boolean" },
+    "replacementPluginId": { "type": ["string", "null"] },
+    "blocked": { "type": "boolean" },
+    "blockSeverity": {
+      "type": ["string", "null"],
+      "enum": ["Informational", "DisableRecommended", "DisableRequired", "InstallBlocked", null]
+    },
+    "blockReason": { "type": ["string", "null"], "maxLength": 2000 },
+    "blockedVersions": {
+      "type": "array",
+      "maxItems": 64,
+      "items": { "type": "string" }
+    },
+    "safeReplacementVersion": { "type": ["string", "null"] },
+    "uninstallPluginIds": {
+      "type": "array",
+      "maxItems": 32,
+      "items": { "type": "string" }
+    },
+    "tags": {
+      "type": "array",
+      "maxItems": 32,
+      "items": { "type": "string", "minLength": 1, "maxLength": 64 }
+    }
+  }
+}

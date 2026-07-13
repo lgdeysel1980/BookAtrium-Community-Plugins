@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lgdeysel1980/BookAtrium-Community-Plugins/schemas/community-index.schema.json",
+  "title": "Community Plugin Registry Index",
+  "description": "Generated Community Plugins catalogue index (schemaVersion 1).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "minimumClientVersion", "plugins"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "generatedAtUtc": { "type": ["string", "null"], "format": "date-time" },
+    "minimumClientVersion": { "type": "string", "minLength": 1 },
+    "plugins": {
+      "type": "array",
+      "maxItems": 5000,
+      "items": { "$ref": "community-plugin.schema.json" }
+    }
+  }
+}
