@@ -15,7 +15,8 @@
 - **Exact immutable asset URL:**
 - **SHA-256:**
 - **Package size (bytes):**
-- **Plugin API version:** (prefer `1.1`)
+- **Plugin API version:** (`2.0` for new submissions; legacy `1.0` / `1.1` only when applicable)
+- **Package extension:** (`.bookplugin` for API 2.0)
 - **App compatibility:** min ______ / max ______ (max optional)
 - **Platforms:**
 - **Licence (SPDX):**
@@ -41,6 +42,7 @@ python scripts/scan_public_export.py --root .
 
 - [ ] I own or have permission to distribute this plugin and its dependencies
 - [ ] Source repository is public
+- [ ] Project references only `BookAtrium.PluginContracts` (no other BookAtrium package)
 - [ ] Release asset is immutable (not `/releases/latest/download/`)
 - [ ] Manifest matches the package
 - [ ] No secrets, TLS bypass, hidden telemetry, undisclosed collection, DRM circumvention, or infringing content
@@ -80,6 +82,7 @@ Leave unchecked / write “none” only when truly not applicable.
 - [ ] SHA-256 / size verified against downloaded asset
 - [ ] Plugin type + capabilities plausible
 - [ ] Network hosts reviewed
+- [ ] API 2.0 + `.bookplugin` for new submissions (or documented legacy exception)
 - [ ] Update disclosures reviewed (if applicable)
 - [ ] Policy compliance (submission / security / removal)
 - [ ] CI green

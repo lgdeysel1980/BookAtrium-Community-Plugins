@@ -1,8 +1,8 @@
-﻿# BookAtrium Community Plugins registry
+# BookAtrium Community Plugins registry
 
 Curated catalogue metadata for third-party BookAtrium plugins.
 
-> **Publication status:** This tree is the **template / export source** for the intended public repository [`lgdeysel1980/BookAtrium-Community-Plugins`](https://github.com/lgdeysel1980/BookAtrium-Community-Plugins). That GitHub repository is **not claimed to be live yet**. Until it is created, pushed, and serving raw index files, BookAtrium hosts may see an empty or unreachable catalogue depending on configuration.
+Live public repository: [`lgdeysel1980/BookAtrium-Community-Plugins`](https://github.com/lgdeysel1980/BookAtrium-Community-Plugins).
 
 ## What this registry is
 
@@ -11,13 +11,13 @@ Curated catalogue metadata for third-party BookAtrium plugins.
 - A review process for **new listings**, **updates**, **deprecations**, and **blocks**
 - Documentation and policies for publishers and maintainers
 
-BookAtrium fetches the official generated index over HTTPS. The intended production endpoint (once the public repo exists on branch `main`) is:
+An empty `plugins/` directory (zero plugins) is valid. BookAtrium hosts fetch the official generated index over HTTPS:
 
 ```text
 https://raw.githubusercontent.com/lgdeysel1980/BookAtrium-Community-Plugins/main/generated/index.json
 ```
 
-Optional compressed sibling:
+Compressed sibling:
 
 ```text
 https://raw.githubusercontent.com/lgdeysel1980/BookAtrium-Community-Plugins/main/generated/index.json.gz
@@ -25,44 +25,44 @@ https://raw.githubusercontent.com/lgdeysel1980/BookAtrium-Community-Plugins/main
 
 ## What this registry is not
 
-- Not a plugin binary host â€” developers publish packages on **their own** GitHub Releases
-- Not a source-code host for plugins â€” developers keep public source in **their own** repositories
+- Not a plugin binary host — developers publish packages on **their own** GitHub Releases
+- Not a source-code host for plugins — developers keep public source in **their own** repositories
 - Not a support desk for third-party plugin behaviour
-- Not an automatic GitHub crawler â€” BookAtrium does **not** search or scrape GitHub for plugins
-- Not automatic approval of every release â€” a Release alone never updates this catalogue
-- Not a security certification â€” inclusion is **not** a safety, quality, or endorsement guarantee
+- Not an automatic GitHub crawler — BookAtrium does **not** search or scrape GitHub for plugins
+- Not automatic approval of every release — a Release alone never updates this catalogue
+- Not a security certification — inclusion is **not** a safety, quality, or endorsement guarantee
 - Not the BookAtrium application repository
 - Not a place to file BookAtrium product bugs
 
 ## Trust model (read carefully)
 
-Registry entries are **metadata only**. Installing a community plugin downloads a `.bookapp-plugin` package and loads .NET assemblies that run with the **same privileges** as BookAtrium. Users must explicitly confirm trust before install/update. Publishers remain responsible for their code, licences, and support.
+Registry entries are **metadata only**. Installing a community plugin downloads a `.bookplugin` package (legacy listings may use `.bookapp-plugin`) and loads .NET assemblies that run with the **same privileges** as BookAtrium. Users must explicitly confirm trust before install/update. Publishers remain responsible for their code, licences, and support.
 
 ## Live catalogue vs examples
 
 | Path | Meaning |
 |------|---------|
 | `plugins/*.json` | **Live** curated entries included in the generated index |
-| `examples/` | **EXAMPLE ONLY â€” NOT INCLUDED IN THE LIVE CATALOGUE** |
+| `examples/` | **EXAMPLE ONLY — NOT INCLUDED IN THE LIVE CATALOGUE** |
 | `templates/` | Example shape + submission checklist helpers |
 
-The initial publication intends an **empty** live `plugins/` directory and a valid empty generated index. Fake or placeholder packages must never land in `plugins/`.
+Fake or placeholder packages must never land in `plugins/`. Zero live plugins is a valid catalogue state.
 
 ## Supported plugin types
 
-Catalogue entries must use one of these BookAtrium plugin types (Plugin API **1.1**):
+Catalogue entries must use one of these BookAtrium plugin types. **Plugin API 2.0** is canonical for new submissions (API 1.0 / 1.1 remain accepted for legacy packages).
 
-| Type | Typical use |
-|------|-------------|
-| `ConversionInput` | Import / convert into library formats |
-| `ConversionOutput` | Export / convert to other formats |
-| `DeviceInterface` | Device sync / device-specific features |
-| `MetadataReader` | Read metadata from files |
-| `MetadataSource` | Look up metadata from external sources |
-| `MetadataWriter` | Write metadata to files |
-| `Store` | Store / retailer search and purchase flows |
+| Type | API 2.0 base class | Typical use |
+|------|--------------------|-------------|
+| `ConversionInput` | `InputConverterPlugin` | Import / convert into library formats |
+| `ConversionOutput` | `OutputConverterPlugin` | Export / convert to other formats |
+| `DeviceInterface` | `DevicePlugin` | Device sync / device-specific features |
+| `MetadataReader` | `MetadataReaderPlugin` | Read metadata from files |
+| `MetadataSource` | `MetadataSourcePlugin` | Look up metadata from external sources |
+| `MetadataWriter` | `MetadataWriterPlugin` | Write metadata to files |
+| `Store` | `StorePlugin` | Store / retailer search and purchase flows |
 
-Capabilities and network hosts must be declared accurately for the chosen type.
+Authoring helpers include `PluginInfo`, `PluginContext`, `PluginTestContext`, `NetworkHosts`, and the `PluginSetting` attribute. Capabilities and network hosts must be declared accurately for the chosen type.
 
 ## Reserved plugin id prefixes
 
@@ -76,16 +76,16 @@ Use a stable reverse-DNS id you control (for example `com.yourorg.plugin-name`).
 
 ## How to submit a new plugin
 
-1. Implement against `BookAtrium.PluginContracts` (API 1.1 preferred).
-2. Test locally in BookAtrium.
-3. Package with `BookAtrium.PluginPackager` (`.bookapp-plugin`).
-4. Publish an **immutable** GitHub Release asset URL of the form:
+1. Reference **only** `BookAtrium.PluginContracts` **2.0.0** (PackageReference; public NuGet publication pending — do not invent a feed URL). Do not reference any other BookAtrium package.
+2. Scaffold and develop with the `bookatrium-plugin` CLI (`new`, `run`, `test`, `validate`, `pack`, `prepare-release`).
+3. Implement an API 2.0 base class (`StorePlugin`, `MetadataSourcePlugin`, etc.).
+4. Pack a **`.bookplugin`** asset and publish an **immutable** GitHub Release URL of the form:
 
    ```text
-   https://github.com/<owner>/<repo>/releases/download/{tag}/{asset}.bookapp-plugin
+   https://github.com/<owner>/<repo>/releases/download/{tag}/{asset}.bookplugin
    ```
 
-   Rejected: `/releases/latest/download/â€¦`
+   Rejected: `/releases/latest/download/…`
 5. Record SHA-256 (64 hex) and exact `sizeBytes`.
 6. Open a submission Issue with `.github/ISSUE_TEMPLATE/submit-plugin.yml` (optional coordination).
 7. Open a pull request adding `plugins/<id>.json`, regenerating `generated/`, and completing the PR template.
@@ -97,10 +97,10 @@ See `CONTRIBUTING.md`, `policies/submission-policy.md`, and `policies/publisher-
 
 ## How to update a listed plugin
 
-1. Bump the semantic version; build and test.
-2. Publish a **new** immutable tagged Release asset (never reuse mutable â€œlatestâ€ URLs).
+1. Bump the semantic version; build and test (`bookatrium-plugin test` / `validate`).
+2. Publish a **new** immutable tagged Release asset (never reuse mutable “latest” URLs).
 3. Compute the new SHA-256 and size.
-4. Update `plugins/<id>.json` â€” keep `id` stable.
+4. Update `plugins/<id>.json` — keep `id` stable.
 5. Disclose capability, network-host, publisher, repository, type, telemetry, and breaking changes in the PR.
 6. Regenerate the index; open a PR; pass CI; await review.
 
@@ -120,19 +120,19 @@ Blocking affects catalogue discovery and remote install/update. BookAtrium does 
 
 Please file issues in the right place. **Do not** use private development repositories as a public support contact.
 
-### Application problems â†’ BookAtrium
+### Application problems → BookAtrium
 
 https://github.com/lgdeysel1980/BookAtrium/issues
 
 Use for BookAtrium bugs, installer problems, application crashes, Community Plugins **window** bugs, and core plugin-host problems.
 
-### Plugin-specific problems â†’ the plugin publisher
+### Plugin-specific problems → the plugin publisher
 
-Use the pluginâ€™s `supportUrl` (and their public repository Issues).
+Use the plugin’s `supportUrl` (and their public repository Issues).
 
 Use for plugin output quality, retailer/API changes, metadata quality, device-specific plugin failures, and conversion plugin behaviour.
 
-### Registry / listing problems â†’ this repository (once published)
+### Registry / listing problems → this repository
 
 https://github.com/lgdeysel1980/BookAtrium-Community-Plugins/issues
 
@@ -140,7 +140,7 @@ Use for listing errors, broken registry metadata, missing release assets referen
 
 ### Security
 
-Use **GitHub Private Vulnerability Reporting** on this registry repository once it exists and the feature is enabled. See `SECURITY.md`. Do not open public Issues for active compromise or exploit details.
+Use **GitHub Private Vulnerability Reporting** on this registry repository. See `SECURITY.md`. Do not open public Issues for active compromise or exploit details.
 
 This registry must **not** become the support desk for every third-party plugin.
 
@@ -178,8 +178,10 @@ Public CI (`.github/workflows/validate-and-build-index.yml`) uses these self-con
 | BookAtrium public repository | https://github.com/lgdeysel1980/BookAtrium |
 | BookAtrium releases | https://github.com/lgdeysel1980/BookAtrium/releases |
 | BookAtrium issues | https://github.com/lgdeysel1980/BookAtrium/issues |
-| Intended registry repository | https://github.com/lgdeysel1980/BookAtrium-Community-Plugins |
-| Developer guide (in BookAtrium docs) | See BookAtrium `docs/plugins/developer-guide.md` once published with the app |
+| Community Plugins registry | https://github.com/lgdeysel1980/BookAtrium-Community-Plugins |
+| Catalogue index (JSON) | https://raw.githubusercontent.com/lgdeysel1980/BookAtrium-Community-Plugins/main/generated/index.json |
+| Catalogue index (gzip) | https://raw.githubusercontent.com/lgdeysel1980/BookAtrium-Community-Plugins/main/generated/index.json.gz |
+| Developer guide | BookAtrium `docs/plugins/sdk-2/` (Plugin API 2.0) |
 
 ## Policies
 

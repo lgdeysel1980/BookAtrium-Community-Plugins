@@ -1,5 +1,5 @@
-﻿name: Submit a Community Plugin
-description: Propose a new listing, update, ownership transfer, deprecation, or removal. Opening this Issue does not list the plugin automatically â€” a reviewed pull request is required.
+name: Submit a Community Plugin
+description: Propose a new listing, update, ownership transfer, deprecation, or removal. Opening this Issue does not list the plugin automatically — a reviewed pull request is required.
 title: "[Plugin] "
 labels: ["plugin-submission"]
 body:
@@ -13,8 +13,11 @@ body:
         - You must also open a pull request editing `plugins/<id>.json` and regenerating `generated/`.
         - Inclusion is discretionary and is **not** a safety guarantee.
         - Example manifests under `examples/` are **EXAMPLE ONLY** and are not live catalogue entries.
+        - An empty live catalogue is valid until real plugins are approved.
         - Application bugs belong at https://github.com/lgdeysel1980/BookAtrium/issues
         - Plugin behaviour support belongs at your `supportUrl`, not this registry.
+
+        New submissions should target **Plugin API 2.0** (`BookAtrium.PluginContracts` only) and `.bookplugin` packages via `bookatrium-plugin`.
 
         Read `policies/submission-policy.md` and `templates/submission-checklist.md` before continuing.
 
@@ -124,8 +127,8 @@ body:
     id: download-url
     attributes:
       label: Exact immutable release asset URL
-      description: Must be https://github.com/<owner>/<repo>/releases/download/{tag}/{asset}. Mutable /releases/latest/download/ URLs are rejected.
-      placeholder: https://github.com/your-org/your-plugin/releases/download/v1.0.0/Your.Plugin.bookapp-plugin
+      description: Must be https://github.com/<owner>/<repo>/releases/download/{tag}/{asset}. Mutable /releases/latest/download/ URLs are rejected. New packages use .bookplugin.
+      placeholder: https://github.com/your-org/your-plugin/releases/download/v1.0.0/Your.Plugin.bookplugin
     validations:
       required: true
 
@@ -133,8 +136,8 @@ body:
     id: package-filename
     attributes:
       label: Package filename
-      description: Exact asset file name, including .bookapp-plugin extension.
-      placeholder: Your.Plugin.bookapp-plugin
+      description: Exact asset file name. New submissions must use the .bookplugin extension.
+      placeholder: Your.Plugin.bookplugin
     validations:
       required: true
 
@@ -169,8 +172,9 @@ body:
     id: plugin-api-version
     attributes:
       label: Plugin API version
-      description: Prefer 1.1 for new submissions.
+      description: New submissions must use 2.0. Legacy 1.0 / 1.1 only for existing API packages.
       options:
+        - "2.0"
         - "1.1"
         - "1.0"
     validations:
@@ -196,9 +200,9 @@ body:
     id: supported-platforms
     attributes:
       label: Supported platforms
-      description: One platform per line (values must match BookAtrium platform vocabulary used in manifests).
+      description: One platform per line (windows-x64, windows-x86, windows-arm64, windows, or any).
       placeholder: |
-        win-x64
+        windows-x64
     validations:
       required: true
 
@@ -247,7 +251,7 @@ body:
     attributes:
       label: Description
       description: Short accurate catalogue description. Do not claim official BookAtrium or PractiCore affiliation.
-      placeholder: Looks up book metadata from â€¦
+      placeholder: Looks up book metadata from …
     validations:
       required: true
 
@@ -265,9 +269,10 @@ body:
     id: testing-performed
     attributes:
       label: Testing performed
-      description: Describe local BookAtrium install/enable testing and any type-specific checks you ran.
+      description: Describe bookatrium-plugin / local BookAtrium install-enable testing and any type-specific checks you ran.
       placeholder: |
-        - Installed .bookapp-plugin via Settings â†’ Plugins
+        - bookatrium-plugin validate / test / pack
+        - Installed .bookplugin via Settings → Plugins
         - Enabled plugin and restarted if required
         - Exercised primary happy path
     validations:
@@ -283,7 +288,9 @@ body:
           required: true
         - label: I own this code or have permission to distribute it under the declared licence.
           required: true
-        - label: All dependencies permit redistribution inside the .bookapp-plugin package.
+        - label: The project references only BookAtrium.PluginContracts (no other BookAtrium package).
+          required: true
+        - label: All dependencies permit redistribution inside the .bookplugin package.
           required: true
         - label: The release asset URL is immutable (not /releases/latest/download/).
           required: true

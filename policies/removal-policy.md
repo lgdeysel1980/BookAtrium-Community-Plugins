@@ -1,6 +1,8 @@
 # Removal, deprecation, and blocking policy
 
-This policy governs how live catalogue entries are deprecated, blocked, replaced, or removed from the BookAtrium Community Plugins registry.
+This policy governs how live catalogue entries are deprecated, blocked, replaced, or removed from the BookAtrium Community Plugins registry ([`lgdeysel1980/BookAtrium-Community-Plugins`](https://github.com/lgdeysel1980/BookAtrium-Community-Plugins)).
+
+An empty catalogue after removals is valid.
 
 ## Principles
 

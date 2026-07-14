@@ -1,12 +1,12 @@
 # Security policy
 
-This document is intended for the future public repository `lgdeysel1980/BookAtrium-Community-Plugins`. That repository is **not yet published**. When it is, enable **GitHub Private Vulnerability Reporting** before treating this channel as live.
+This document applies to the live public repository [`lgdeysel1980/BookAtrium-Community-Plugins`](https://github.com/lgdeysel1980/BookAtrium-Community-Plugins). Use **GitHub Private Vulnerability Reporting** for security-sensitive reports.
 
 ## How to report a vulnerability
 
 **Do not open a public issue for security-sensitive reports.**
 
-Security reports for this registry should use **GitHub Private Vulnerability Reporting** for the `lgdeysel1980/BookAtrium-Community-Plugins` repository once it exists and that feature is enabled.
+Security reports for this registry should use **GitHub Private Vulnerability Reporting** on `lgdeysel1980/BookAtrium-Community-Plugins`.
 
 Use Private Vulnerability Reporting for:
 
@@ -17,7 +17,7 @@ Use Private Vulnerability Reporting for:
 - Secrets accidentally committed to this registry repository
 - CI or indexing defects that could cause unsafe installs
 
-If Private Vulnerability Reporting is not yet enabled, repository maintainers must enable it before first public release. Until then, do not invent an email address or leave an unresolved security-contact placeholder.
+Do not invent an email address or leave an unresolved security-contact placeholder.
 
 ## What is in scope
 
@@ -70,7 +70,7 @@ Maintainers may:
 
 ## Maintainer response (target)
 
-Once the public repository is live and Private Vulnerability Reporting is enabled, maintainers aim to:
+Maintainers aim to:
 
 1. Acknowledge receipt
 2. Triage severity (listing integrity vs installed-plugin impact)

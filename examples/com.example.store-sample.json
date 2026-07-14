@@ -1,56 +1,47 @@
-﻿{
-    "id":  "com.example.store-sample",
-    "name":  "Sample Store Plugin (EXAMPLE)",
-    "summary":  "EXAMPLE catalogue entry for the Phase 3U store sample plugin id.",
-    "description":  "This is an EXAMPLE Community Plugins registry entry. Download URLs and hashes are placeholders and must not be used for installation. Replace with a real reviewed release before publishing a production registry.",
-    "publisher":  {
-                      "name":  "Example Developer",
-                      "githubLogin":  "ExampleDeveloper",
-                      "verified":  false
-                  },
-    "pluginType":  "Store",
-    "version":  "1.0.0",
-    "releaseDateUtc":  "2026-07-01T00:00:00Z",
-    "minimumAppVersion":  "1.0.0",
-    "pluginApiVersion":  "1.1",
-    "supportedPlatforms":  [
-                               "windows-x64",
-                               "any"
-                           ],
-    "repositoryUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin",
-    "supportUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/issues",
-    "documentationUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/blob/main/README.md",
-    "license":  {
-                    "spdxId":  "MIT",
-                    "url":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/blob/main/LICENSE"
-                },
-    "package":  {
-                    "downloadUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/releases/download/v1.0.0/Example.StoreSample.bookapp-plugin",
-                    "fileName":  "Example.StoreSample.bookapp-plugin",
-                    "sizeBytes":  2048,
-                    "sha256":  "50d858e0985ecc7f60418aaf0cc5ab587f42c2570a884095a9e8ccacd0f6545c"
-                },
-    "capabilities":  [
-                         "StoreSearch"
-                     ],
-    "networkHosts":  [
-
-                     ],
-    "requiresRestart":  false,
-    "homepageUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin",
-    "changelogUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/releases/tag/v1.0.0",
-    "deprecated":  false,
-    "blocked":  false,
-    "blockedVersions":  [
-
-                        ],
-    "uninstallPluginIds":  [
-
-                           ],
-    "tags":  [
-                 "example",
-                 "store",
-                 "sample"
-             ],
-    "_comment":  "EXAMPLE ONLY — NOT INCLUDED IN THE LIVE CATALOGUE"
+{
+  "_comment": "EXAMPLE ONLY — NOT INCLUDED IN THE LIVE CATALOGUE",
+  "id": "com.example.store-sample",
+  "name": "Sample Store Plugin (EXAMPLE)",
+  "summary": "EXAMPLE catalogue entry for a sample Store plugin.",
+  "description": "This is an EXAMPLE Community Plugins registry entry. Download URLs and hashes are placeholders and must not be used for installation.",
+  "publisher": {
+    "name": "Example Developer",
+    "githubLogin": "ExampleDeveloper",
+    "verified": false
+  },
+  "pluginType": "Store",
+  "version": "1.0.0",
+  "releaseDateUtc": "2026-07-01T00:00:00Z",
+  "minimumAppVersion": "1.0.0",
+  "maximumAppVersion": null,
+  "pluginApiVersion": "2.0",
+  "supportedPlatforms": ["windows-x64", "any"],
+  "repositoryUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin",
+  "supportUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/issues",
+  "documentationUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/blob/main/README.md",
+  "license": {
+    "spdxId": "MIT",
+    "url": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/blob/main/LICENSE"
+  },
+  "package": {
+    "downloadUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/releases/download/v1.0.0/Example.StoreSample.bookplugin",
+    "fileName": "Example.StoreSample.bookplugin",
+    "sizeBytes": 2048,
+    "sha256": "50d858e0985ecc7f60418aaf0cc5ab587f42c2570a884095a9e8ccacd0f6545c"
+  },
+  "capabilities": ["StoreSearch"],
+  "networkHosts": [],
+  "requiresRestart": false,
+  "homepageUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin",
+  "donationUrl": null,
+  "changelogUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/releases/tag/v1.0.0",
+  "deprecated": false,
+  "replacementPluginId": null,
+  "blocked": false,
+  "blockSeverity": null,
+  "blockReason": null,
+  "blockedVersions": [],
+  "safeReplacementVersion": null,
+  "uninstallPluginIds": [],
+  "tags": ["example", "store", "sample"]
 }
