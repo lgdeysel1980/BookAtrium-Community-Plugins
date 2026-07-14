@@ -1,6 +1,6 @@
 # Security policy (registry operations)
 
-Operational security policy for the BookAtrium Community Plugins catalogue. Companion to root `SECURITY.md`.
+Operational security policy for the BookAtrium Community Plugins catalogue ([`lgdeysel1980/BookAtrium-Community-Plugins`](https://github.com/lgdeysel1980/BookAtrium-Community-Plugins)). Companion to root `SECURITY.md`.
 
 ## Trust boundaries
 
@@ -17,7 +17,7 @@ Catalogue inclusion is **not** a sandbox, signature programme, or safety warrant
 
 ### Preferred channel
 
-**GitHub Private Vulnerability Reporting** on `lgdeysel1980/BookAtrium-Community-Plugins` once the repository exists and the feature is enabled.
+**GitHub Private Vulnerability Reporting** on `lgdeysel1980/BookAtrium-Community-Plugins`.
 
 Do not invent a public security email. Do not leave unresolved security-contact placeholders.
 
@@ -79,7 +79,7 @@ Route non-security support correctly:
 
 - App bugs → https://github.com/lgdeysel1980/BookAtrium/issues
 - Plugin behaviour → publisher `supportUrl`
-- Listing metadata (non-urgent) → registry Issues (once published)
+- Listing metadata (non-urgent) → https://github.com/lgdeysel1980/BookAtrium-Community-Plugins/issues
 
 Do not expose private development repositories as a support contact.
 
@@ -87,6 +87,7 @@ Do not expose private development repositories as a support contact.
 
 - Maximum package size: **40 MiB**
 - HTTPS immutable GitHub Releases URLs only
+- Canonical package extension: `.bookplugin` (API 2.0); legacy `.bookapp-plugin` / `.bookmetadata-plugin` for API 1.0/1.1
 - Declared `networkHosts` should match real outbound needs
 - No certificate-validation bypasses in plugins
 - No hidden telemetry without disclosure

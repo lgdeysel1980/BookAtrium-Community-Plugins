@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/lgdeysel1980/BookAtrium-Community-Plugins/schemas/community-plugin.schema.json",
   "title": "Community Plugin Registry Entry",
-  "description": "Single curated plugin catalogue entry (schemaVersion 1 vocabulary).",
+  "description": "Single curated plugin catalogue entry (schemaVersion 1 vocabulary). Plugin API 2.0 is canonical for new submissions; API 1.0/1.1 remain valid for legacy packages. Canonical package extension is .bookplugin (legacy .bookapp-plugin / .bookmetadata-plugin for API 1.0/1.1).",
   "type": "object",
   "additionalProperties": true,
   "required": [
@@ -58,7 +58,11 @@
     "releaseDateUtc": { "type": ["string", "null"], "format": "date-time" },
     "minimumAppVersion": { "type": "string", "minLength": 1 },
     "maximumAppVersion": { "type": ["string", "null"] },
-    "pluginApiVersion": { "type": "string", "minLength": 1 },
+    "pluginApiVersion": {
+      "type": "string",
+      "description": "2.0 is canonical for new submissions; 1.0 and 1.1 are legacy.",
+      "enum": ["1.0", "1.1", "2.0"]
+    },
     "supportedPlatforms": {
       "type": "array",
       "minItems": 1,
@@ -90,7 +94,13 @@
           "type": "string",
           "pattern": "^https://github\\.com/[A-Za-z0-9]([A-Za-z0-9\\-]*[A-Za-z0-9])?/[A-Za-z0-9._\\-]+/releases/download/[^/]+/[^/?#]+$"
         },
-        "fileName": { "type": "string", "minLength": 1, "maxLength": 260 },
+        "fileName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 260,
+          "pattern": "^.+\\.(bookplugin|bookapp-plugin|bookmetadata-plugin)$",
+          "description": "API 2.0 packages must use .bookplugin; API 1.0/1.1 may use .bookapp-plugin or .bookmetadata-plugin."
+        },
         "sizeBytes": { "type": "integer", "minimum": 1, "maximum": 41943040 },
         "sha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" }
       }

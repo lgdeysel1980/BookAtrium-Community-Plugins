@@ -1,8 +1,8 @@
-﻿# Submission policy
+# Submission policy
 
-Final policy for curated entries in the BookAtrium Community Plugins registry (`lgdeysel1980/BookAtrium-Community-Plugins` when published).
+Final policy for curated entries in the BookAtrium Community Plugins registry ([`lgdeysel1980/BookAtrium-Community-Plugins`](https://github.com/lgdeysel1980/BookAtrium-Community-Plugins)).
 
-This policy applies to Issues, pull requests, and maintainer decisions that add or change live catalogue metadata under `plugins/`.
+This policy applies to Issues, pull requests, and maintainer decisions that add or change live catalogue metadata under `plugins/`. An empty catalogue is valid.
 
 ## Purpose
 
@@ -12,27 +12,27 @@ The registry lists **reviewed metadata** pointing at immutable GitHub Release pa
 
 A submission may be considered only when all of the following are true:
 
-1. **Public source code** â€” the pluginâ€™s source repository is publicly reachable over HTTPS.
-2. **Stable plugin ID** â€” lowercase reverse-DNS style id that remains stable across versions.
-3. **Supported plugin type** â€” one of: `ConversionInput`, `ConversionOutput`, `DeviceInterface`, `MetadataReader`, `MetadataSource`, `MetadataWriter`, `Store`.
-4. **Plugin API** â€” declares Plugin API **1.1** or another API version the current BookAtrium host explicitly supports.
-5. **Semantic version** â€” valid SemVer for the listed package.
-6. **Immutable release tag** â€” fixed Git tag; no floating channels.
+1. **Public source code** — the plugin’s source repository is publicly reachable over HTTPS.
+2. **Stable plugin ID** — lowercase reverse-DNS style id that remains stable across versions.
+3. **Supported plugin type** — one of: `ConversionInput`, `ConversionOutput`, `DeviceInterface`, `MetadataReader`, `MetadataSource`, `MetadataWriter`, `Store`.
+4. **Plugin API** — **2.0** for new submissions (canonical). API 1.0 / 1.1 remain accepted for legacy packages the host still loads.
+5. **Semantic version** — valid SemVer for the listed package.
+6. **Immutable release tag** — fixed Git tag; no floating channels.
 7. **Immutable GitHub Release asset URL** of the form:
 
    ```text
    https://github.com/<owner>/<repo>/releases/download/{tag}/{asset}
    ```
 
-8. **Valid BookAtrium plugin package** â€” `.bookapp-plugin` produced for BookAtrium / `BookAtrium.PluginContracts`.
-9. **SHA-256** â€” 64 hexadecimal characters matching the asset bytes.
-10. **Declared package size** â€” exact `sizeBytes` within host limits (maximum 40 MiB).
-11. **Declared licence** â€” SPDX identifier and licence URL where applicable.
-12. **Support URL** â€” working public support location (Issues URL or documented support page).
-13. **Accurate description** â€” not misleading about features, ownership, or affiliation.
-14. **Declared capabilities** â€” exact capability names allowed for the plugin type.
-15. **Declared network hosts** â€” complete list of outbound hosts when network access is required.
-16. **Manifest match** â€” registry entry fields match the package manifest (`id`, version, type, API, capabilities, platforms, bounds).
+8. **Valid BookAtrium plugin package** — `.bookplugin` for API 2.0 (legacy API 1.0/1.1 may use `.bookapp-plugin` or `.bookmetadata-plugin`), built against `BookAtrium.PluginContracts` only.
+9. **SHA-256** — 64 hexadecimal characters matching the asset bytes.
+10. **Declared package size** — exact `sizeBytes` within host limits (maximum 40 MiB).
+11. **Declared licence** — SPDX identifier and licence URL where applicable.
+12. **Support URL** — working public support location (Issues URL or documented support page).
+13. **Accurate description** — not misleading about features, ownership, or affiliation.
+14. **Declared capabilities** — exact capability names allowed for the plugin type.
+15. **Declared network hosts** — complete list of outbound hosts when network access is required.
+16. **Manifest match** — registry entry fields match the package manifest (`id`, version, type, API, capabilities, platforms, bounds).
 
 ## Hard prohibitions
 
@@ -51,6 +51,7 @@ Submissions must **not** include or facilitate:
 - Reserved plugin id prefixes: `bookatrium.*`, `bookapplication.*`, `builtin.*`
 - Placeholder / example-only packaging in the live `plugins/` directory
 - Hand-edited generated index content that disagrees with regeneration
+- References to any BookAtrium package other than `BookAtrium.PluginContracts`
 
 `publisher.verified` must remain `false` until an official cryptographic publisher-verification programme exists.
 

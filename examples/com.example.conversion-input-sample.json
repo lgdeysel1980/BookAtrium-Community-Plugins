@@ -1,57 +1,47 @@
-﻿{
-    "id":  "com.example.conversion-input-sample",
-    "name":  "Sample Conversion Input Plugin (EXAMPLE)",
-    "summary":  "EXAMPLE catalogue entry for the Phase 3U conversion-input sample plugin id.",
-    "description":  "This is an EXAMPLE Community Plugins registry entry. Download URLs and hashes are placeholders and must not be used for installation.",
-    "publisher":  {
-                      "name":  "Example Developer",
-                      "githubLogin":  "ExampleDeveloper",
-                      "verified":  false
-                  },
-    "pluginType":  "ConversionInput",
-    "version":  "1.0.0",
-    "releaseDateUtc":  "2026-07-01T00:00:00Z",
-    "minimumAppVersion":  "1.0.0",
-    "pluginApiVersion":  "1.1",
-    "supportedPlatforms":  [
-                               "windows-x64",
-                               "any"
-                           ],
-    "repositoryUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin",
-    "supportUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/issues",
-    "documentationUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/blob/main/README.md",
-    "license":  {
-                    "spdxId":  "MIT",
-                    "url":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/blob/main/LICENSE"
-                },
-    "package":  {
-                    "downloadUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/releases/download/v1.0.0/Example.ConversionInputSample.bookapp-plugin",
-                    "fileName":  "Example.ConversionInputSample.bookapp-plugin",
-                    "sizeBytes":  1536,
-                    "sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-                },
-    "capabilities":  [
-                         "ReadInputFormat",
-                         "TemporaryFileAccess"
-                     ],
-    "networkHosts":  [
-
-                     ],
-    "requiresRestart":  false,
-    "homepageUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin",
-    "changelogUrl":  "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/releases/tag/v1.0.0",
-    "deprecated":  false,
-    "blocked":  false,
-    "blockedVersions":  [
-
-                        ],
-    "uninstallPluginIds":  [
-
-                           ],
-    "tags":  [
-                 "example",
-                 "conversion",
-                 "sample"
-             ],
-    "_comment":  "EXAMPLE ONLY — NOT INCLUDED IN THE LIVE CATALOGUE"
+{
+  "_comment": "EXAMPLE ONLY — NOT INCLUDED IN THE LIVE CATALOGUE",
+  "id": "com.example.conversion-input-sample",
+  "name": "Sample Conversion Input Plugin (EXAMPLE)",
+  "summary": "EXAMPLE catalogue entry for a sample ConversionInput plugin.",
+  "description": "This is an EXAMPLE Community Plugins registry entry. Download URLs and hashes are placeholders and must not be used for installation.",
+  "publisher": {
+    "name": "Example Developer",
+    "githubLogin": "ExampleDeveloper",
+    "verified": false
+  },
+  "pluginType": "ConversionInput",
+  "version": "1.0.0",
+  "releaseDateUtc": "2026-07-01T00:00:00Z",
+  "minimumAppVersion": "1.0.0",
+  "maximumAppVersion": null,
+  "pluginApiVersion": "2.0",
+  "supportedPlatforms": ["windows-x64", "any"],
+  "repositoryUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin",
+  "supportUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/issues",
+  "documentationUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/blob/main/README.md",
+  "license": {
+    "spdxId": "MIT",
+    "url": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/blob/main/LICENSE"
+  },
+  "package": {
+    "downloadUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/releases/download/v1.0.0/Example.ConversionInputSample.bookplugin",
+    "fileName": "Example.ConversionInputSample.bookplugin",
+    "sizeBytes": 1536,
+    "sha256": "a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e"
+  },
+  "capabilities": ["ReadInputFormat", "TemporaryFileAccess"],
+  "networkHosts": [],
+  "requiresRestart": false,
+  "homepageUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin",
+  "donationUrl": null,
+  "changelogUrl": "https://github.com/ExampleDeveloper/BookAtrium-ExamplePlugin/releases/tag/v1.0.0",
+  "deprecated": false,
+  "replacementPluginId": null,
+  "blocked": false,
+  "blockSeverity": null,
+  "blockReason": null,
+  "blockedVersions": [],
+  "safeReplacementVersion": null,
+  "uninstallPluginIds": [],
+  "tags": ["example", "conversion", "sample"]
 }

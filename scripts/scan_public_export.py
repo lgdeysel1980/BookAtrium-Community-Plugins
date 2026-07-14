@@ -51,6 +51,32 @@ SECRET_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     ("temp_audit_dir", re.compile(r"BookAtrium-Phase3X-Audit", re.I)),
     ("nuget_credentials", re.compile(r"(?i)nuget.*(password|apikey|cleartextpassword)")),
     ("user_secrets", re.compile(r"(?i)usersecretsid\s*[:=]")),
+    ("pluginsdk_package", re.compile(r"BookAtrium\.PluginSdk")),
+]
+
+# Mojibake literals encoded as escapes so this file does not contain the bad sequences.
+# Built from UTF-8 of typographic punctuation mis-decoded as Windows-1252 / latin-1.
+_MOJIBAKE = {
+    "mojibake_emdash": "\u00e2\u20ac\u201d",
+    "mojibake_rsquo": "\u00e2\u20ac\u2122",
+    "mojibake_arrow": "\u00e2\u2020\u2019",
+    "mojibake_ldquo": "\u00e2\u20ac\u0153",
+    "mojibake_rdquo_c1": "\u00e2\u20ac\u009d",
+    "mojibake_rdquo_replace": "\u00e2\u20ac\ufffd",
+    "mojibake_ellipsis": "\u00e2\u20ac\u00a6",
+    "mojibake_A_tilde": "\u00c3",
+    "mojibake_replacement": "\ufffd",
+}
+
+CONTENT_POLICY_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
+    ("api_1_1_preferred", re.compile(r"(?i)API\s*\*?\*?1\.1\*?\*?\s+preferred")),
+    ("prefer_1_1", re.compile(r"(?i)Prefer\s+1\.1\b")),
+    ("prefer_backtick_1_1", re.compile(r"(?i)prefer\s+`1\.1`")),
+    ("plugin_api_1_1_preferred", re.compile(r"(?i)Plugin\s+API\s+\*?\*?1\.1\*?\*?\s+preferred")),
+    *[
+        (label, re.compile(re.escape(sequence)))
+        for label, sequence in _MOJIBAKE.items()
+    ],
 ]
 
 PLACEHOLDER_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
@@ -140,12 +166,21 @@ def scan_file(path: Path, root: Path, allow_legacy_env_docs: bool) -> list[str]:
         text_for_brand = re.sub(r'["\']bookapplication\.["\']?', "", text_for_brand)
         text_for_brand = re.sub(r"bookapplication\.\*", "", text_for_brand, flags=re.I)
 
+    text_for_secrets = text
+    if path.name == "validate_registry.py":
+        # Validator rejects this string; do not flag the detector itself.
+        text_for_secrets = text_for_secrets.replace("BookAtrium.PluginSdk", "")
+
     for label, pattern in SECRET_PATTERNS:
-        sample = text_for_brand if label.startswith("bookapplication") else text
+        sample = text_for_brand if label.startswith("bookapplication") else text_for_secrets
         if label == "bookapplication_env_active" and pattern.search(text):
             findings.append(f"{rel}: matched {label}")
             continue
         if pattern.search(sample):
+            findings.append(f"{rel}: matched {label}")
+
+    for label, pattern in CONTENT_POLICY_PATTERNS:
+        if pattern.search(text):
             findings.append(f"{rel}: matched {label}")
 
     if not example:

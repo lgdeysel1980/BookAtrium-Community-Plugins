@@ -7,6 +7,8 @@ Validates:
   - Immutable GitHub release download URL shape
   - SHA-256 hex length
   - pluginType / capability enum names
+  - pluginApiVersion 1.0 / 1.1 (legacy) or 2.0 (canonical for new)
+  - Package extension vs API (.bookplugin for 2.0; legacy extensions for 1.0/1.1)
   - Reserved id prefixes: bookatrium.*, bookapplication.*, builtin.*
 
 Exit codes: 0 success, 1 validation failure, 2 usage/environment error.
@@ -19,6 +21,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 PLUGIN_TYPES = {
     "ConversionInput",
@@ -46,6 +49,9 @@ CAPABILITIES = {
 }
 
 PLATFORMS = {"windows-x64", "windows-x86", "windows-arm64", "windows", "any"}
+ALLOWED_API = {"1.0", "1.1", "2.0"}
+LEGACY_PACKAGE_SUFFIXES = (".bookapp-plugin", ".bookmetadata-plugin")
+API2_PACKAGE_SUFFIX = ".bookplugin"
 SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
 ID_RE = re.compile(r"^[a-z0-9]([a-z0-9.\-]{0,126}[a-z0-9])?$")
 RELEASE_URL_RE = re.compile(
@@ -56,6 +62,7 @@ REPO_URL_RE = re.compile(
     r"^https://github\.com/[A-Za-z0-9](?:[A-Za-z0-9\-]*[A-Za-z0-9])?/[A-Za-z0-9._\-]+/?$"
 )
 SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$")
+WIN_ABS_PATH_RE = re.compile(r"(?i)[A-Za-z]:\\")
 MAX_PACKAGE_BYTES = 40 * 1024 * 1024
 MIN_PACKAGE_BYTES = 1
 EMPTY_SHA256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
@@ -64,6 +71,17 @@ RESERVED_PREFIXES = ("bookatrium.", "bookapplication.", "builtin.")
 
 def fail(msg: str) -> None:
     print(f"error: {msg}", file=sys.stderr)
+
+
+def iter_strings(value: Any):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for nested in value.values():
+            yield from iter_strings(nested)
+    elif isinstance(value, list):
+        for nested in value:
+            yield from iter_strings(nested)
 
 
 def validate_entry(
@@ -80,6 +98,15 @@ def validate_entry(
     comment = str(data.get("_comment") or "")
     if "EXAMPLE ONLY" in comment.upper() and publication:
         errors.append(f"{prefix}: EXAMPLE ONLY entries are not allowed in live plugins/")
+
+    for text in iter_strings(data):
+        if "BookAtrium.PluginSdk" in text:
+            errors.append(f"{prefix}: BookAtrium.PluginSdk must not appear in registry entries")
+            break
+    for text in iter_strings(data):
+        if "BookAtrium-Development" in text or WIN_ABS_PATH_RE.search(text):
+            errors.append(f"{prefix}: private path / development-tree content is not allowed")
+            break
 
     plugin_id = data.get("id")
     if not isinstance(plugin_id, str) or not ID_RE.match(plugin_id):
@@ -112,8 +139,8 @@ def validate_entry(
         errors.append(f"{prefix}: version must be semantic (e.g. 1.2.3)")
 
     api = str(data.get("pluginApiVersion") or "")
-    if api not in {"1.0", "1.1"}:
-        errors.append(f"{prefix}: pluginApiVersion must be 1.0 or 1.1")
+    if api not in ALLOWED_API:
+        errors.append(f"{prefix}: pluginApiVersion must be 1.0, 1.1 (legacy), or 2.0")
 
     package = data.get("package") or {}
     download_url = str(package.get("downloadUrl") or "")
@@ -125,8 +152,18 @@ def validate_entry(
     file_name = str(package.get("fileName") or "")
     if not file_name or "/" in file_name or "\\" in file_name or ".." in file_name:
         errors.append(f"{prefix}: invalid package.fileName")
-    elif not (file_name.endswith(".bookapp-plugin") or file_name.endswith(".bookmetadata-plugin")):
-        errors.append(f"{prefix}: package.fileName must end with .bookapp-plugin or .bookmetadata-plugin")
+    elif api == "2.0":
+        if not file_name.endswith(API2_PACKAGE_SUFFIX):
+            errors.append(f"{prefix}: package.fileName for pluginApiVersion 2.0 must end with .bookplugin")
+        elif file_name in seen_files:
+            errors.append(f"{prefix}: duplicate package.fileName '{file_name}'")
+        else:
+            seen_files.add(file_name)
+    elif not file_name.endswith(LEGACY_PACKAGE_SUFFIXES):
+        errors.append(
+            f"{prefix}: package.fileName for pluginApiVersion {api or '(missing)'} "
+            "must end with .bookapp-plugin or .bookmetadata-plugin"
+        )
     elif file_name in seen_files:
         errors.append(f"{prefix}: duplicate package.fileName '{file_name}'")
     else:

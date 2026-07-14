@@ -21,9 +21,7 @@ SCHEMA_VERSION = 1
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Generate community plugin registry index"
-    )
+    parser = argparse.ArgumentParser(description="Generate community plugin registry index")
     parser.add_argument("--plugins-dir", required=True)
     parser.add_argument("--output-dir", required=True)
     parser.add_argument(
@@ -35,39 +33,25 @@ def main() -> int:
 
     plugins_dir = Path(args.plugins_dir)
     output_dir = Path(args.output_dir)
-
     if not plugins_dir.is_dir():
-        print(
-            f"error: plugins directory not found: {plugins_dir}",
-            file=sys.stderr,
-        )
+        print(f"error: plugins directory not found: {plugins_dir}", file=sys.stderr)
         return 2
 
-    entries: list[dict] = []
-
+    entries = []
     for path in sorted(plugins_dir.glob("*.json"), key=lambda p: p.name):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except Exception as ex:
             print(f"error: {path.name}: {ex}", file=sys.stderr)
             return 1
-
         if not isinstance(data, dict):
-            print(
-                f"error: {path.name}: expected JSON object",
-                file=sys.stderr,
-            )
+            print(f"error: {path.name}: expected JSON object", file=sys.stderr)
             return 1
-
         entries.append(data)
 
-    entries.sort(key=lambda entry: str(entry.get("id") or ""))
+    entries.sort(key=lambda e: str(e.get("id") or ""), reverse=False)
 
-    generated_at = (
-        args.generated_at
-        or datetime.now(timezone.utc).isoformat()
-    )
-
+    generated_at = args.generated_at or datetime.now(timezone.utc).isoformat()
     index = {
         "schemaVersion": SCHEMA_VERSION,
         "generatedAtUtc": generated_at,
@@ -76,15 +60,11 @@ def main() -> int:
     }
 
     output_dir.mkdir(parents=True, exist_ok=True)
-
     index_path = output_dir / "index.json"
     gzip_path = output_dir / "index.json.gz"
-
     text = json.dumps(index, indent=2, ensure_ascii=False) + "\n"
     index_path.write_text(text, encoding="utf-8")
-
-    # Produce reproducible gzip output. gzip.open() stores the current
-    # timestamp in the gzip header, which causes CI comparisons to fail.
+    # Deterministic gzip: empty filename, mtime=0 (no wall-clock header fields).
     with gzip_path.open("wb") as output:
         with gzip.GzipFile(
             filename="",
@@ -95,11 +75,7 @@ def main() -> int:
             gz.write(text.encode("utf-8"))
 
     print(f"::notice::Wrote {index_path} ({len(entries)} plugin(s))")
-    print(
-        f"::notice::Wrote {gzip_path} "
-        f"({gzip_path.stat().st_size} bytes gzip)"
-    )
-
+    print(f"::notice::Wrote {gzip_path} ({gzip_path.stat().st_size} bytes gzip)")
     return 0
 
 
