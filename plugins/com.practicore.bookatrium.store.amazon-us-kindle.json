@@ -14,7 +14,7 @@
   "minimumAppVersion": "1.0.0",
   "maximumAppVersion": null,
   "pluginApiVersion": "2.0",
-  "supportedPlatforms": ["windows-x64", "any"],
+  "supportedPlatforms": ["any"],
   "repositoryUrl": "https://github.com/lgdeysel1980/BookAtrium-Plugin-Amazon-US-Kindle-Store",
   "supportUrl": "https://github.com/lgdeysel1980/BookAtrium-Plugin-Amazon-US-Kindle-Store/issues",
   "documentationUrl": "https://github.com/lgdeysel1980/BookAtrium-Plugin-Amazon-US-Kindle-Store/blob/main/README.md",
@@ -52,3 +52,4 @@
   "privacyDeclaration": "This plugin does not access Amazon accounts, perform purchases, download DRM-protected content, or collect telemetry or analytics.",
   "telemetryDeclaration": "No telemetry, analytics, or usage reporting is implemented or transmitted by this plugin."
 }
+
