@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAtUtc": "2026-07-15T19:55:19.505057+00:00",
+  "generatedAtUtc": "2026-07-15T20:06:36.673692+00:00",
   "minimumClientVersion": "1.0.0",
   "plugins": [
     {
@@ -20,7 +20,7 @@
       "maximumAppVersion": null,
       "pluginApiVersion": "2.0",
       "supportedPlatforms": [
-        "any"
+        "windows"
       ],
       "repositoryUrl": "https://github.com/lgdeysel1980/BookAtrium-Plugin-Amazon-US-Kindle-Store",
       "supportUrl": "https://github.com/lgdeysel1980/BookAtrium-Plugin-Amazon-US-Kindle-Store/issues",
