@@ -116,6 +116,12 @@ Maintainers may:
 
 Blocking affects catalogue discovery and remote install/update. BookAtrium does **not** remotely delete installed plugin files. Users disable or remove local plugins themselves. Details: `policies/removal-policy.md`.
 
+## Official first-party plugins
+
+First-party BookAtrium plugins are published through the **official** plugin registry, not this community catalogue. When a plugin moves to the official catalogue, its community source entry is removed and a short migration note is kept under `docs/migrations/`. Existing installs continue to match by permanent plugin ID.
+
+See for example: [`docs/migrations/amazon-us-kindle-store.md`](docs/migrations/amazon-us-kindle-store.md).
+
 ## Support routing
 
 Please file issues in the right place. **Do not** use private development repositories as a public support contact.
