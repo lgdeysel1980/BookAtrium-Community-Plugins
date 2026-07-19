@@ -7,9 +7,9 @@ An empty live catalogue (`plugins/` with no JSON entries) is valid.
 ## Before you start
 
 1. Read `policies/submission-policy.md`, `policies/security-policy.md`, `policies/removal-policy.md`, and `policies/publisher-guidelines.md`.
-2. Build against **Plugin API 2.0** using **only** `BookAtrium.PluginContracts` **2.0.0**. Do not reference any other BookAtrium package. (Public NuGet publication of 2.0.0 may still be pending — do not invent a feed URL.)
+2. Build against **Plugin API 2.0** using **only** `BookAtrium.PluginContracts` **2.0.0**. Do not reference any other BookAtrium package.
 3. Use the `bookatrium-plugin` CLI (`new` / `run` / `test` / `validate` / `pack` / `prepare-release`).
-4. Publish an **immutable** GitHub Release asset ending in `.bookplugin` (not `/releases/latest/download/`). Legacy API 1.0/1.1 packages may use `.bookapp-plugin` or `.bookmetadata-plugin`.
+4. Publish an **immutable** GitHub Release asset ending in `.bookplugin` (not `/releases/latest/download/`).
 5. Compute the SHA-256 and exact byte size of the release asset.
 
 Opening an Issue does **not** list a plugin. Catalogue changes require a reviewed pull request that updates `plugins/*.json` and regenerates `generated/`.

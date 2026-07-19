@@ -15,7 +15,7 @@ A submission may be considered only when all of the following are true:
 1. **Public source code** — the plugin’s source repository is publicly reachable over HTTPS.
 2. **Stable plugin ID** — lowercase reverse-DNS style id that remains stable across versions.
 3. **Supported plugin type** — one of: `ConversionInput`, `ConversionOutput`, `DeviceInterface`, `MetadataReader`, `MetadataSource`, `MetadataWriter`, `Store`.
-4. **Plugin API** — **2.0** for new submissions (canonical). API 1.0 / 1.1 remain accepted for legacy packages the host still loads.
+4. **Plugin API** — **2.0** only.
 5. **Semantic version** — valid SemVer for the listed package.
 6. **Immutable release tag** — fixed Git tag; no floating channels.
 7. **Immutable GitHub Release asset URL** of the form:
@@ -24,7 +24,7 @@ A submission may be considered only when all of the following are true:
    https://github.com/<owner>/<repo>/releases/download/{tag}/{asset}
    ```
 
-8. **Valid BookAtrium plugin package** — `.bookplugin` for API 2.0 (legacy API 1.0/1.1 may use `.bookapp-plugin` or `.bookmetadata-plugin`), built against `BookAtrium.PluginContracts` only.
+8. **Valid BookAtrium plugin package** — `.bookplugin`, built against `BookAtrium.PluginContracts` only.
 9. **SHA-256** — 64 hexadecimal characters matching the asset bytes.
 10. **Declared package size** — exact `sizeBytes` within host limits (maximum 40 MiB).
 11. **Declared licence** — SPDX identifier and licence URL where applicable.

@@ -87,7 +87,7 @@ Do not expose private development repositories as a support contact.
 
 - Maximum package size: **40 MiB**
 - HTTPS immutable GitHub Releases URLs only
-- Canonical package extension: `.bookplugin` (API 2.0); legacy `.bookapp-plugin` / `.bookmetadata-plugin` for API 1.0/1.1
+- Required package extension: `.bookplugin` (Plugin API 2.0)
 - Declared `networkHosts` should match real outbound needs
 - No certificate-validation bypasses in plugins
 - No hidden telemetry without disclosure
