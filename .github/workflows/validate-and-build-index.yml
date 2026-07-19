@@ -49,7 +49,7 @@ jobs:
 
       - name: Secret, placeholder, and content-policy scan
         run: |
-          # Flags forbidden packages, preferred legacy-API wording, mojibake, secrets, placeholders.
+          # Flags forbidden packages, policy wording, mojibake, secrets, placeholders.
           python scripts/scan_public_export.py --root .
 
       - name: Upload generated catalogue artifact

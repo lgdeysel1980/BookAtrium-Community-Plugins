@@ -172,11 +172,9 @@ body:
     id: plugin-api-version
     attributes:
       label: Plugin API version
-      description: New submissions must use 2.0. Legacy 1.0 / 1.1 only for existing API packages.
+      description: Submissions must use 2.0.
       options:
         - "2.0"
-        - "1.1"
-        - "1.0"
     validations:
       required: true
 

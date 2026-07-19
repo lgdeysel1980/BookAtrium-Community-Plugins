@@ -7,8 +7,8 @@ Validates:
   - Immutable GitHub release download URL shape
   - SHA-256 hex length
   - pluginType / capability enum names
-  - pluginApiVersion 1.0 / 1.1 (legacy) or 2.0 (canonical for new)
-  - Package extension vs API (.bookplugin for 2.0; legacy extensions for 1.0/1.1)
+    - pluginApiVersion 2.0 only
+    - Package extension .bookplugin only
   - Reserved id prefixes: bookatrium.*, bookapplication.*, builtin.*
 
 Exit codes: 0 success, 1 validation failure, 2 usage/environment error.
@@ -49,8 +49,7 @@ CAPABILITIES = {
 }
 
 PLATFORMS = {"windows-x64", "windows-x86", "windows-arm64", "windows", "any"}
-ALLOWED_API = {"1.0", "1.1", "2.0"}
-LEGACY_PACKAGE_SUFFIXES = (".bookapp-plugin", ".bookmetadata-plugin")
+ALLOWED_API = {"2.0"}
 API2_PACKAGE_SUFFIX = ".bookplugin"
 SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
 ID_RE = re.compile(r"^[a-z0-9]([a-z0-9.\-]{0,126}[a-z0-9])?$")
@@ -140,7 +139,7 @@ def validate_entry(
 
     api = str(data.get("pluginApiVersion") or "")
     if api not in ALLOWED_API:
-        errors.append(f"{prefix}: pluginApiVersion must be 1.0, 1.1 (legacy), or 2.0")
+        errors.append(f"{prefix}: pluginApiVersion must be 2.0")
 
     package = data.get("package") or {}
     download_url = str(package.get("downloadUrl") or "")
@@ -152,18 +151,8 @@ def validate_entry(
     file_name = str(package.get("fileName") or "")
     if not file_name or "/" in file_name or "\\" in file_name or ".." in file_name:
         errors.append(f"{prefix}: invalid package.fileName")
-    elif api == "2.0":
-        if not file_name.endswith(API2_PACKAGE_SUFFIX):
-            errors.append(f"{prefix}: package.fileName for pluginApiVersion 2.0 must end with .bookplugin")
-        elif file_name in seen_files:
-            errors.append(f"{prefix}: duplicate package.fileName '{file_name}'")
-        else:
-            seen_files.add(file_name)
-    elif not file_name.endswith(LEGACY_PACKAGE_SUFFIXES):
-        errors.append(
-            f"{prefix}: package.fileName for pluginApiVersion {api or '(missing)'} "
-            "must end with .bookapp-plugin or .bookmetadata-plugin"
-        )
+    elif not file_name.endswith(API2_PACKAGE_SUFFIX):
+        errors.append(f"{prefix}: package.fileName must end with .bookplugin")
     elif file_name in seen_files:
         errors.append(f"{prefix}: duplicate package.fileName '{file_name}'")
     else:

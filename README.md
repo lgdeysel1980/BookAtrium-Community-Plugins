@@ -36,7 +36,7 @@ https://raw.githubusercontent.com/lgdeysel1980/BookAtrium-Community-Plugins/main
 
 ## Trust model (read carefully)
 
-Registry entries are **metadata only**. Installing a community plugin downloads a `.bookplugin` package (legacy listings may use `.bookapp-plugin`) and loads .NET assemblies that run with the **same privileges** as BookAtrium. Users must explicitly confirm trust before install/update. Publishers remain responsible for their code, licences, and support.
+Registry entries are **metadata only**. Installing a community plugin downloads a `.bookplugin` package and loads .NET assemblies that run with the **same privileges** as BookAtrium. Users must explicitly confirm trust before install/update. Publishers remain responsible for their code, licences, and support.
 
 ## Live catalogue vs examples
 
@@ -50,7 +50,7 @@ Fake or placeholder packages must never land in `plugins/`. Zero live plugins is
 
 ## Supported plugin types
 
-Catalogue entries must use one of these BookAtrium plugin types. **Plugin API 2.0** is canonical for new submissions (API 1.0 / 1.1 remain accepted for legacy packages).
+Catalogue entries must use one of these BookAtrium plugin types. **Plugin API 2.0** is required for submissions.
 
 | Type | API 2.0 base class | Typical use |
 |------|--------------------|-------------|
@@ -76,7 +76,7 @@ Use a stable reverse-DNS id you control (for example `com.yourorg.plugin-name`).
 
 ## How to submit a new plugin
 
-1. Reference **only** `BookAtrium.PluginContracts` **2.0.0** (PackageReference; public NuGet publication pending — do not invent a feed URL). Do not reference any other BookAtrium package.
+1. Reference **only** `BookAtrium.PluginContracts` **2.0.0** (PackageReference). Do not reference any other BookAtrium package.
 2. Scaffold and develop with the `bookatrium-plugin` CLI (`new`, `run`, `test`, `validate`, `pack`, `prepare-release`).
 3. Implement an API 2.0 base class (`StorePlugin`, `MetadataSourcePlugin`, etc.).
 4. Pack a **`.bookplugin`** asset and publish an **immutable** GitHub Release URL of the form:
@@ -118,9 +118,9 @@ Blocking affects catalogue discovery and remote install/update. BookAtrium does 
 
 ## Official first-party plugins
 
-First-party BookAtrium plugins are published through the **official** plugin registry, not this community catalogue. When a plugin moves to the official catalogue, its community source entry is removed and a short migration note is kept under `docs/migrations/`. Existing installs continue to match by permanent plugin ID.
+First-party BookAtrium plugins are published through the **official** plugin registry, not this community catalogue.
 
-See for example: [`docs/migrations/amazon-us-kindle-store.md`](docs/migrations/amazon-us-kindle-store.md).
+The live community catalogue currently has zero approved plugins.
 
 ## Support routing
 

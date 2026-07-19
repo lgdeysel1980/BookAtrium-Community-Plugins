@@ -15,7 +15,7 @@
 - **Exact immutable asset URL:**
 - **SHA-256:**
 - **Package size (bytes):**
-- **Plugin API version:** (`2.0` for new submissions; legacy `1.0` / `1.1` only when applicable)
+- **Plugin API version:** (`2.0`)
 - **Package extension:** (`.bookplugin` for API 2.0)
 - **App compatibility:** min ______ / max ______ (max optional)
 - **Platforms:**
@@ -82,7 +82,7 @@ Leave unchecked / write “none” only when truly not applicable.
 - [ ] SHA-256 / size verified against downloaded asset
 - [ ] Plugin type + capabilities plausible
 - [ ] Network hosts reviewed
-- [ ] API 2.0 + `.bookplugin` for new submissions (or documented legacy exception)
+- [ ] API 2.0 + `.bookplugin`
 - [ ] Update disclosures reviewed (if applicable)
 - [ ] Policy compliance (submission / security / removal)
 - [ ] CI green

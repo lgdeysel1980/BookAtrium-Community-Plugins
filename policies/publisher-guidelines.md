@@ -37,7 +37,7 @@ Your plugin README should include:
 ## Releases
 
 - Publish **immutable** GitHub Releases with fixed tags (`v1.2.3`).
-- Attach the exact `.bookplugin` asset used by the registry entry (legacy API 1.0/1.1 may use `.bookapp-plugin` / `.bookmetadata-plugin`).
+- Attach the exact `.bookplugin` asset used by the registry entry.
 - Never use `/releases/latest/download/` in registry metadata.
 - Do not replace assets on an existing tag after the registry lists that URL; cut a new version instead.
 
@@ -56,7 +56,7 @@ Your plugin README should include:
 
 ## Contracts and packaging (API 2.0)
 
-1. Reference **only** `BookAtrium.PluginContracts` **2.0.0**. Do not reference any other BookAtrium package. (Public NuGet publication may still be pending — do not invent a feed URL.)
+1. Reference **only** `BookAtrium.PluginContracts` **2.0.0**. Do not reference any other BookAtrium package.
 2. Subclass the matching API 2.0 base: `StorePlugin`, `MetadataSourcePlugin`, `MetadataReaderPlugin`, `MetadataWriterPlugin`, `InputConverterPlugin`, `OutputConverterPlugin`, or `DevicePlugin`.
 3. Use `PluginInfo`, `PluginContext`, `NetworkHosts`, and `[PluginSetting]` as needed; test with `PluginTestContext`.
 4. Scaffold / run / test / validate / pack / prepare with **`bookatrium-plugin`**.
